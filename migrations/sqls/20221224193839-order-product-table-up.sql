@@ -1,1 +1,1 @@
-CREATE TABLE order_product (order_id INTEGER,product_id INTEGER,FOREIGN KEY(order_id) REFERENCES orders(id),FOREIGN KEY(product_id) REFERENCES products(id)); 
+CREATE TABLE order_product (order_id INTEGER,product_id INTEGER,FOREIGN KEY(order_id) REFERENCES orders(id),FOREIGN KEY(product_id) REFERENCES products(id),quantity INTEGER); 

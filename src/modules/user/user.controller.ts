@@ -1,4 +1,4 @@
-import { isAuth } from './../../middlewares/isAuthenticated';
+import { isAuth } from '../../middlewares/isAuthenticated';
 import { UserStore } from './user.model';
 import { User, UserLogin } from './user.type';
 import express, { Request, Response } from 'express';
@@ -20,7 +20,11 @@ const index = async (req: Request, res: Response) => {
 const show = async (req: Request, res: Response) => {
   try {
     const user = await store.show(parseInt(req.params.id as string));
-    res.status(200).json(user);
+    if (!user) {
+      res.status(404).json({ error: `user id:${req.params.id} not found` });
+    } else {
+      res.status(200).json(user);
+    }
   } catch (err) {
     res.status(400).json({ error: `${err}` });
   }
@@ -60,7 +64,7 @@ const authenticate = async (req: Request, res: Response) => {
 };
 
 userRoutes.get('/users', isAuth, index);
-userRoutes.get('/users/:id', show);
+userRoutes.get('/users/:id', isAuth, show);
 userRoutes.post('/users', create);
 userRoutes.post('/authenticate', authenticate);
 
