@@ -1,18 +1,22 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt, { Secret } from 'jsonwebtoken';
+import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
 const { TOKEN_SECRET } = process.env;
 
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const authorizationHeader = req.headers.authorization as string;
     if (!authorizationHeader) {
-      res.status(401).json({ error: 'No authorization header was found' });
+      res
+        .status(401)
+        .json({ error: 'You need to login to view this resource' });
     } else {
       const token = authorizationHeader.split(' ')[1];
       if (!token) {
         res.status(401).json({ error: 'token not found' });
       } else {
-        const decoded = jwt.verify(token, TOKEN_SECRET as Secret);
+        const decoded = jwt.verify(token, TOKEN_SECRET as Secret) as JwtPayload;
+        req.user = decoded.user;
+        // console.log('decoded', decoded.user);
         next();
       }
     }

@@ -8,7 +8,9 @@ const store = new ProductStore();
 
 const index = async (req: Request, res: Response) => {
   try {
-    const products = await store.index({ category: req.query.category as string });
+    const products = await store.index({
+      category: req.query.category as string,
+    });
     res.status(200).json(products);
   } catch (err) {
     res.status(400).json({ error: `${err}` });
@@ -42,8 +44,18 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
+const popular = async (req: Request, res: Response) => {
+  try {
+    const products = await store.popular();
+    res.status(200).json(products);
+  } catch (err) {
+    res.status(400).json({ error: `${err}` });
+  }
+};
+
 productRoutes.get('/products', index);
 productRoutes.get('/products/:id', show);
 productRoutes.post('/products', isAuth, create);
+productRoutes.get('/popular', popular);
 
 export default productRoutes;

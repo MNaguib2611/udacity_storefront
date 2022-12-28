@@ -17,6 +17,9 @@
     "semi": ["error", "always"],
     "import/no-extraneous-dependencies": 0,
     "@typescript-eslint/no-explicit-any": ["error"],
-    "max-len": ["error", { "code": 120 }]
+    "max-len": [
+      "error",
+      { "code": 120, "ignoreStrings": true, "ignoreComments": true }
+    ]
   }
 }

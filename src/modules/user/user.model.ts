@@ -24,7 +24,8 @@ export class UserStore {
   async show(id: number): Promise<User> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT id, firstname, lastname, username FROM users where id = $1';
+      const sql =
+        'SELECT id, firstname, lastname, username FROM users where id = $1';
       const result = await conn.query(sql, [id]);
       const user = result.rows[0];
       conn.release();
@@ -37,24 +38,40 @@ export class UserStore {
   async create(u: User): Promise<User> {
     try {
       const conn = await client.connect();
-      const sql = 'INSERT INTO users (lastname,firstname,username,password) VALUES($1, $2, $3, $4) RETURNING *';
-      const hash = bcrypt.hashSync(`${u.password}${BYCRYPT_PASSWORD}`, parseInt(SALT_ROUNDS as string));
+      const sql =
+        'INSERT INTO users (lastname,firstname,username,password) VALUES($1, $2, $3, $4) RETURNING *';
+      const hash = bcrypt.hashSync(
+        `${u.password}${BYCRYPT_PASSWORD}`,
+        parseInt(SALT_ROUNDS as string),
+      );
 
-      const result = await conn.query(sql, [u.firstName, u.lastName, u.username, hash]);
+      const result = await conn.query(sql, [
+        u.firstName,
+        u.lastName,
+        u.username,
+        hash,
+      ]);
       const user = result.rows[0];
+      delete user['password'];
       conn.release();
       return user;
     } catch (err) {
-      throw new Error(`unable create user (${u.firstName} ${u.lastName}): ${err}`);
+      throw new Error(
+        `unable create user (${u.firstName} ${u.lastName}): ${err}`,
+      );
     }
   }
   async authenticate(username: string, password: string): Promise<User | null> {
     try {
       const conn = await client.connect();
-      const sql = 'SELECT id, firstname, lastname, username,password FROM users where username = $1 ';
+      const sql =
+        'SELECT id, firstname, lastname, username,password FROM users where username = $1 ';
       const result = await conn.query(sql, [username]);
       const user = result.rows[0];
-      const found = bcrypt.compareSync(`${password}${BYCRYPT_PASSWORD}`, user.password);
+      const found = bcrypt.compareSync(
+        `${password}${BYCRYPT_PASSWORD}`,
+        user.password,
+      );
       if (found) {
         delete user['password'];
         const token = jwt.sign({ user: user }, TOKEN_SECRET as Secret);
