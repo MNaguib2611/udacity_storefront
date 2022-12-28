@@ -13,8 +13,6 @@ export class OrderStore {
       sql = 'SELECT * FROM orders where user_id=$1 ';
       result = await conn.query(sql, [f.user_id]);
       let orders = result.rows;
-      console.log(f.status);
-
       if (f.status) {
         orders = orders.filter((order) => order.status === f.status);
       }
@@ -40,7 +38,7 @@ export class OrderStore {
       conn.release();
       return order;
     } catch (err) {
-      throw new Error(`unable get order id:(${id}}): ${err}`);
+      throw new Error(`unable to get order id:(${id}}): ${err}`);
     }
   }
 
@@ -63,9 +61,8 @@ export class OrderStore {
       await conn.query('COMMIT');
       return { ...order, products: productsInserted.rows };
     } catch (err) {
-      console.log(err);
       await client.query('ROLLBACK');
-      throw new Error(`unable create order : ${err}`);
+      throw new Error(`unable to create order : ${err}`);
     } finally {
       conn.release();
     }
@@ -74,13 +71,13 @@ export class OrderStore {
   async complete(id: number): Promise<Order> {
     try {
       const conn = await client.connect();
-      const sql = 'update  orders set(status) VALUES($1) RETURNING *';
-      const result = await conn.query(sql, ['complete']);
+      const sql = 'update orders set status=$1 where id=$2 RETURNING *';
+      const result = await conn.query(sql, ['complete', id]);
       const order = result.rows[0];
       conn.release();
-      return order;
+      return this.show(order.id);
     } catch (err) {
-      throw new Error(`unable create order : ${err}`);
+      throw new Error(`unable to update order : ${err}`);
     }
   }
 }

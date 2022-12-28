@@ -16,7 +16,6 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
       } else {
         const decoded = jwt.verify(token, TOKEN_SECRET as Secret) as JwtPayload;
         req.user = decoded.user;
-        // console.log('decoded', decoded.user);
         next();
       }
     }

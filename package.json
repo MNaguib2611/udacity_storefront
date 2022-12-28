@@ -11,7 +11,8 @@
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
     "prettier": "prettier .",
     "format:verify": "yarn run prettier  --check .",
-    "format": "yarn run prettier -- --write"
+    "format": "yarn run prettier --write",
+    "verify": "yarn run lint && yarn run format"
   },
   "keywords": [
     "starter-code-typescrript-express"

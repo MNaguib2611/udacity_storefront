@@ -46,8 +46,18 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
+const complete = async (req: Request, res: Response) => {
+  try {
+    const newProduct = await store.complete(parseInt(req.params.id as string));
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(400).json({ error: `${err}` });
+  }
+};
+
 orderRoutes.get('/orders', isAuth, index);
 orderRoutes.get('/orders/:id', isAuth, show);
 orderRoutes.post('/orders', isAuth, create);
+orderRoutes.put('/orders/:id', isAuth, complete);
 
 export default orderRoutes;

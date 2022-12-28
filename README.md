@@ -1,6 +1,6 @@
 # Yonsify Image Processing App
 
-A simple application to resize images and store processed images for further usuage.
+A simple Express application for the APIs of creating a store front for udacity Project.
 
 ## Project set up
 
@@ -22,10 +22,39 @@ A simple application to resize images and store processed images for further usu
 
 ## Endpints
 
+### Products
+
+- List products get`/products` requires NO token
+- Show product by id get`/products/:id` requires NO token
+- Top 5 popular products get`/popular` requires NO token
+- Create products post`/products` requires A token
+
+### Users
+
+- List users get`/users` requires A token
+- Show user by id get`/users/:id` requires A token
+- Create a user post`/users` requires A token
+- Authenticate a user post`/authenticate` requires NO token
+
+### Orders
+
+- List orders get`/orders` requires A token & user_id / status
+- Show specific order get`/orders/id` requires A token
+- Create an order post`/orders` requires A token
+- Complete an order put`/orders/:id` requires A token
+
+## Endpints Notes
+
+- get`/products` accepts `category` parameter to filter products
+- get`/popular` gets the most popular products based on placed quantity in orders
+- get`/orders` accepts user_id[required] & status [optional:active/complete]
+
 ## Libraries used
 
 - NodeJS using TypeScript
 - ExpressJS
+- pg
+- db-migrate
 - Jasmine
 - SuperTest
 - Jasonwebtoken

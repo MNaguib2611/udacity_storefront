@@ -10,7 +10,6 @@ export class ProductStore {
       const conn = await client.connect();
       let sql;
       let result;
-      console.log(!filter.category);
       if (!filter.category) {
         sql = 'SELECT * FROM products';
         result = await conn.query(sql);
@@ -61,7 +60,6 @@ export class ProductStore {
       conn.release();
       return product;
     } catch (err) {
-      console.log(err);
       throw new Error(`unable get most popular products : ${err}`);
     }
   }
