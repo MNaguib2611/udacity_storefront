@@ -3,8 +3,9 @@ import { UserStore } from './user.model';
 import { User, UserLogin } from './user.type';
 import express, { Request, Response } from 'express';
 import jwt, { Secret } from 'jsonwebtoken';
-const userRoutes = express.Router();
+import userSchema from './user.schema';
 
+const userRoutes = express.Router();
 const store = new UserStore();
 const { TOKEN_SECRET } = process.env;
 
@@ -38,6 +39,7 @@ const create = async (req: Request, res: Response) => {
     password: req.body.password,
   };
   try {
+    await userSchema.validateAsync(user);
     const newUser = await store.create(user);
     var token = jwt.sign({ user: newUser }, TOKEN_SECRET as Secret);
     res.status(201).json({ ...newUser, token });

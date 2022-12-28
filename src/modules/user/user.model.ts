@@ -83,4 +83,17 @@ export class UserStore {
       return null;
     }
   }
+
+  async getUserByUsername(username: string): Promise<string> {
+    try {
+      const conn = await client.connect();
+      const sql = 'SELECT id from users where username=$1';
+      const result = await conn.query(sql, [username]);
+      const user = result.rows[0];
+      conn.release();
+      return user;
+    } catch (err) {
+      throw new Error(`unable to list users ${err}`);
+    }
+  }
 }

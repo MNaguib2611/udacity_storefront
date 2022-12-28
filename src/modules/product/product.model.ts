@@ -63,4 +63,17 @@ export class ProductStore {
       throw new Error(`unable get most popular products : ${err}`);
     }
   }
+
+  async getProductByName(productName: string): Promise<string> {
+    try {
+      const conn = await client.connect();
+      const sql = 'SELECT id from products where name=$1';
+      const result = await conn.query(sql, [productName]);
+      const product = result.rows[0];
+      conn.release();
+      return product;
+    } catch (err) {
+      throw new Error(`unable to list users ${err}`);
+    }
+  }
 }

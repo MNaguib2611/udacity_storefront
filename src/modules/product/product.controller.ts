@@ -2,6 +2,7 @@ import { Product } from './product.type';
 import { isAuth } from '../../middlewares/isAuthenticated';
 import { ProductStore } from './product.model';
 import express, { Request, Response } from 'express';
+import productSchema from './product.schema';
 
 const productRoutes = express.Router();
 const store = new ProductStore();
@@ -37,6 +38,7 @@ const create = async (req: Request, res: Response) => {
     category: req.body.category,
   };
   try {
+    await productSchema.validateAsync(product);
     const newProduct = await store.create(product);
     res.status(201).json(newProduct);
   } catch (err) {
