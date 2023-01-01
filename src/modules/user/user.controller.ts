@@ -9,7 +9,7 @@ const userRoutes = express.Router();
 const store = new UserStore();
 const { TOKEN_SECRET } = process.env;
 
-const index = async (req: Request, res: Response) => {
+const index = async (req: Request, res: Response): Promise<void> => {
   try {
     const users = await store.index();
     res.json(users);
@@ -18,7 +18,7 @@ const index = async (req: Request, res: Response) => {
   }
 };
 
-const show = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response): Promise<void> => {
   try {
     const user = await store.show(parseInt(req.params.id as string));
     if (!user) {
@@ -31,7 +31,7 @@ const show = async (req: Request, res: Response) => {
   }
 };
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response): Promise<void> => {
   const user: User = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const authenticate = async (req: Request, res: Response) => {
+const authenticate = async (req: Request, res: Response): Promise<void> => {
   try {
     const u: UserLogin = {
       username: req.body.username,

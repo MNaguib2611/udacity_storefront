@@ -19,7 +19,7 @@ describe('Test Order endpoints', async () => {
 
     order = {
       status: 'active',
-      user_id: user.id,
+      user_id: user.id as number,
       products: [
         { id: product1.id as Number, quantity: 11 },
         { id: product2.id as Number, quantity: 2001 },

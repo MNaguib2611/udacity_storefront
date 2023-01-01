@@ -1,8 +1,9 @@
+import { User } from './../../modules/user/user.type';
 import { Product } from './../../modules/product/product.type';
 import supertest from 'supertest';
 import { app } from '../../app';
 
-export const signupTestUser = async (username: String) => {
+export const signupTestUser = async (username: String): Promise<User> => {
   const response = await supertest(app).post('/users').send({
     username,
     firstName: 'testuser',

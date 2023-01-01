@@ -7,7 +7,7 @@ A simple Express application for the APIs of creating a store front for udacity 
 - ` git clone  https://github.com/MNaguib2611/udacity_storefront.git`
 - ` cd udacity_storefront`
 - `./scripts/start.sh`
-- the ```.env.example ```is prefilled with env variables for convenience Only
+- the ```.env.example ```is prefilled with env variables for convenience Only (.env varialbes should not be commited to github)
 - the application will be running on `http://localhost:3000/`
 
 ## Scripts
@@ -62,3 +62,4 @@ A simple Express application for the APIs of creating a store front for udacity 
 - Bcrypt
 - Prettier
 - Lint
+- Joi for request validation 

@@ -7,7 +7,7 @@ import orderSchema from './order.schema';
 const orderRoutes = express.Router();
 const store = new OrderStore();
 
-const index = async (req: Request, res: Response) => {
+const index = async (req: Request, res: Response): Promise<void> => {
   try {
     const products = await store.index({
       user_id: parseInt(req.query.user_id as string),
@@ -19,7 +19,7 @@ const index = async (req: Request, res: Response) => {
   }
 };
 
-const show = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response): Promise<void> => {
   try {
     const order = await store.show(parseInt(req.params.id as string));
     if (!order) {
@@ -32,7 +32,7 @@ const show = async (req: Request, res: Response) => {
   }
 };
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response): Promise<void> => {
   const user_id = req.user && req.user.id ? req.user.id : null;
   const order: Order = {
     user_id,
@@ -48,7 +48,7 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const complete = async (req: Request, res: Response) => {
+const complete = async (req: Request, res: Response): Promise<void> => {
   try {
     const newProduct = await store.complete(parseInt(req.params.id as string));
     res.status(200).json(newProduct);

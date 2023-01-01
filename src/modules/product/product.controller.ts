@@ -7,7 +7,7 @@ import productSchema from './product.schema';
 const productRoutes = express.Router();
 const store = new ProductStore();
 
-const index = async (req: Request, res: Response) => {
+const index = async (req: Request, res: Response): Promise<void> => {
   try {
     const products = await store.index({
       category: req.query.category as string,
@@ -18,7 +18,7 @@ const index = async (req: Request, res: Response) => {
   }
 };
 
-const show = async (req: Request, res: Response) => {
+const show = async (req: Request, res: Response): Promise<void> => {
   try {
     const product = await store.show(parseInt(req.params.id as string));
     if (!product) {
@@ -31,7 +31,7 @@ const show = async (req: Request, res: Response) => {
   }
 };
 
-const create = async (req: Request, res: Response) => {
+const create = async (req: Request, res: Response): Promise<void> => {
   const product: Product = {
     name: req.body.name,
     price: req.body.price,
@@ -46,7 +46,7 @@ const create = async (req: Request, res: Response) => {
   }
 };
 
-const popular = async (req: Request, res: Response) => {
+const popular = async (req: Request, res: Response): Promise<void> => {
   try {
     const products = await store.popular();
     res.status(200).json(products);
