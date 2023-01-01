@@ -1,8 +1,8 @@
-import { Product } from './../modules/product/product.type';
-import { Order } from './../modules/orders/order.type';
-import { signupTestUser, createProduct } from './helpers/helpers';
+import { Product } from '../../modules/product/product.type';
+import { Order } from '../../modules/orders/order.type';
+import { signupTestUser, createProduct } from '../helpers/helpers';
 import supertest from 'supertest';
-import { app } from '../app';
+import { app } from '../../app';
 
 const request = supertest(app);
 

@@ -1,6 +1,6 @@
-import { signupTestUser } from './helpers/helpers';
+import { signupTestUser } from '../helpers/helpers';
 import supertest from 'supertest';
-import { app } from '../app';
+import { app } from '../../app';
 
 const request = supertest(app);
 

@@ -81,7 +81,7 @@ export class OrderStore {
       const result = await conn.query(sql, ['complete', id]);
       const order = result.rows[0];
       conn.release();
-      return this.show(order.id);
+      return await this.show(order.id);
     } catch (err) {
       throw new Error(`unable to update order : ${err}`);
     }
