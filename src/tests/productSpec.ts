@@ -1,4 +1,3 @@
-import { User } from '../modules/user/user.type';
 import { signupTestUser } from './helpers/helpers';
 import supertest from 'supertest';
 import { app } from '../app';
@@ -14,7 +13,7 @@ describe('Test product endpoints', async () => {
     category: 'category1',
   };
   beforeAll(async () => {
-    const user = await signupTestUser();
+    const user = await signupTestUser('testProduct');
     token = `Bearer ${user.token}`;
   });
   it('Product index:status code 200 from /products route', async () => {

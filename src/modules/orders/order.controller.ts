@@ -51,7 +51,7 @@ const create = async (req: Request, res: Response) => {
 const complete = async (req: Request, res: Response) => {
   try {
     const newProduct = await store.complete(parseInt(req.params.id as string));
-    res.status(201).json(newProduct);
+    res.status(200).json(newProduct);
   } catch (err) {
     res.status(400).json({ error: `${err}` });
   }

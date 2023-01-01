@@ -48,7 +48,6 @@ describe('Test user endpoints', () => {
   it('User index: Should return 401 if token was not provided ', async () => {
     try {
       const response = await request.get('/users');
-      console.log(response.body);
       expect(response.status).toBe(401);
     } catch (err) {
       console.error(err);

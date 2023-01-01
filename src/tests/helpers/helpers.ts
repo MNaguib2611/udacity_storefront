@@ -1,9 +1,10 @@
+import { Product } from './../../modules/product/product.type';
 import supertest from 'supertest';
 import { app } from '../../app';
 
-export const signupTestUser = async () => {
+export const signupTestUser = async (username: String) => {
   const response = await supertest(app).post('/users').send({
-    username: 'testuser',
+    username,
     firstName: 'testuser',
     lastName: 'testuser',
     password: '123456',
@@ -11,13 +12,13 @@ export const signupTestUser = async () => {
   return response.body;
 };
 
-export const createProduct = async (token: String) => {
+export const createProduct = async (token: String): Promise<Product> => {
   const name = (Math.random() + 1).toString(36).substring(7);
   const response = await supertest(app)
-    .post('/users')
+    .post('/products')
     .set({ Authorization: token })
     .send({
-      username: name,
+      name,
       price: 100,
       category: 'Category1',
     });
