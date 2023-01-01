@@ -7,6 +7,7 @@ A simple Express application for the APIs of creating a store front for udacity 
 - ` git clone  https://github.com/MNaguib2611/udacity_storefront.git`
 - ` cd udacity_storefront`
 - `./scripts/start.sh`
+- the ```.env.example ```is prefilled with env variables for convenience Only
 - the application will be running on `http://localhost:3000/`
 
 ## Scripts

@@ -1,7 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { Secret, JwtPayload } from 'jsonwebtoken';
-const { TOKEN_SECRET } = process.env;
+import dotenv from 'dotenv';
+dotenv.config();
 
+const { TOKEN_SECRET } = process.env;
 export const isAuth = (req: Request, res: Response, next: NextFunction) => {
   try {
     const authorizationHeader = req.headers.authorization as string;
@@ -11,6 +13,7 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
         .json({ error: 'You need to login to view this resource' });
     } else {
       const token = authorizationHeader.split(' ')[1];
+
       if (!token) {
         res.status(401).json({ error: 'token not found' });
       } else {
@@ -20,6 +23,6 @@ export const isAuth = (req: Request, res: Response, next: NextFunction) => {
       }
     }
   } catch (error) {
-    res.status(402).json({ error: 'token not valid' });
+    res.status(401).json({ error: 'token not valid' });
   }
 };

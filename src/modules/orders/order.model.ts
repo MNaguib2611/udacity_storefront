@@ -10,8 +10,14 @@ export class OrderStore {
       const conn = await client.connect();
       let sql;
       let result;
-      sql = 'SELECT * FROM orders where user_id=$1 ';
-      result = await conn.query(sql, [f.user_id]);
+      if (f.user_id) {
+        sql = 'SELECT * FROM orders where user_id=$1 ';
+        result = await conn.query(sql, [f.user_id]);
+      } else {
+        sql = 'SELECT * FROM orders';
+        result = await conn.query(sql);
+      }
+
       let orders = result.rows;
       if (f.status) {
         orders = orders.filter((order) => order.status === f.status);

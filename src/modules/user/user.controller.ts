@@ -56,7 +56,7 @@ const authenticate = async (req: Request, res: Response) => {
     };
     const user = await store.authenticate(u.username, u.password);
     if (user) {
-      res.status(201).json(user);
+      res.status(200).json(user);
     } else {
       res.status(401).json({ error: 'failed to authenticate user' });
     }

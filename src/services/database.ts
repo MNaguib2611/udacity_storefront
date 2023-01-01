@@ -29,4 +29,6 @@ if (ENV === 'test') {
   });
 }
 
+// console.log('-------------------', ENV, client);
+
 export default client;

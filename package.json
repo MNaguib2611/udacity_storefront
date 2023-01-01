@@ -7,7 +7,7 @@
     "start": "nodemon src/server.ts",
     "build": "npx tsc",
     "jasmine": "jasmine",
-    "test": "ENV=test db-migrate --env test up && yarn run build && yarn run jasmine && db-migrate down -c 5 test",
+    "test": "ENV=test db-migrate down --env test -c 5 && ENV=test db-migrate --env test up && yarn run build && ENV=test  yarn run jasmine",
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
     "prettier": "prettier .",
     "format:verify": "yarn run prettier  --check .",
