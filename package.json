@@ -4,10 +4,10 @@
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "16.10.0"
+    "node": "16.15.0"
   },
   "scripts": {
-    "start": "nodemon src/server.ts",
+    "start": "node server.js",
     "compile": " npx tsc",
     "build": "rm -rf www && npx tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "jasmine": "jasmine",
@@ -17,7 +17,7 @@
     "format:verify": "yarn run prettier  --check .",
     "format": "yarn run prettier --write",
     "verify": "yarn run lint && yarn run format",
-    "deploy": "npm run build && eb list"
+    "deploy": "npm run build && eb use store-front-api-dev && eb deploy"
   },
   "keywords": [
     "starter-code-typescrript-express"

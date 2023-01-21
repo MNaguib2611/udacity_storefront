@@ -47,7 +47,6 @@ jobs:
           name: Deploy App
           command: |
             echo " Install, build, deploy in both apps"
-            npm run build
             npm run deploy
             
 workflows:
