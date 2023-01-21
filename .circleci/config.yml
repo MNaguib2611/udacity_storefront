@@ -1,31 +1,59 @@
-# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  node: circleci/node@4.7
-  aws-cli: circleci/aws-cli@2.0.3
-
+  # orgs contain basc recipes and reproducible actions (install node, aws, etc.)
+  node: circleci/node@5.0.2
+  eb: circleci/aws-elastic-beanstalk@2.0.1
+  aws-cli: circleci/aws-cli@3.1.1
+  # different jobs are calles later in the workflows sections
 jobs:
-  aws-cli-setup-job:
+  build:
     docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
+      # the base image can run most needed actions with orbs
+      - image: "cimg/node:14.15"
     steps:
-      - aws-cli/install:
-          disable-aws-pager: true 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
+      # install node and checkout code
+      - node/install:
+          node-version: '14.15'         
+      - checkout
+      # Use root level package.json to install dependencies in the frontend app
+       
+      - run:
+          name: Install API Dependencies
+          command: |
+           echo "Install dependencies in the the backend API  "
+            echo "NODE --version" 
+            echo $(node --version)
+            echo "NPM --version" 
+            echo $(npm --version)
+            npm install
+      - run:
+          name: API Build
+          command: |
+            echo "npm run build"
+            npm run build
+            npm run test
+
+  deploy:
+    docker:
+      - image: "cimg/base:stable"
+      # more setup needed for aws, node, elastic beanstalk
+    steps:
+      - node/install:
+          node-version: '14.15' 
+      - eb/setup
+      - aws-cli/setup
+      - checkout
+      - run:
+          name: Deploy App
+          command: |
+            echo " Install, build, deploy in both apps"
+            npm run build
+            npm run deploy
+            
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  storefront:
     jobs:
-      - node/test:
-          # This is the node version to use for the `cimg/node` tag
-          # Relevant tags can be found on the CircleCI Developer Hub
-          # https://circleci.com/developer/images/image/cimg/node
-          version: '16.10'
-          # If you are using yarn, change the line below from "npm" to "yarn"
-          pkg-manager: npm
-      - aws-cli-setup-job
+      - build
+      - deploy:
+          requires:
+            - build

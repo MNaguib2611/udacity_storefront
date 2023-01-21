@@ -16,7 +16,8 @@
     "prettier": "prettier .",
     "format:verify": "yarn run prettier  --check .",
     "format": "yarn run prettier --write",
-    "verify": "yarn run lint && yarn run format"
+    "verify": "yarn run lint && yarn run format",
+    "deploy": "npm run build && eb list"
   },
   "keywords": [
     "starter-code-typescrript-express"

@@ -1,6 +1,6 @@
 branch-defaults:
   main:
-    environment: null
+    environment: store-front-api-dev
     group_suffix: null
 deploy:
   artifact: www/Archive.zip
