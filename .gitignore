@@ -3,3 +3,11 @@ dist
 .eslintcache
 .env
 **log
+
+# Elastic Beanstalk Files (conmmentsed only for udacity-project-submission)
+# .elasticbeanstalk/*
+# !.elasticbeanstalk/*.cfg.yml
+# !.elasticbeanstalk/*.global.yml
+
+
+www

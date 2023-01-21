@@ -1,5 +1,7 @@
 import { app } from './app';
 
-app.listen(3000, function () {
-  console.log(`starting app on: ${3000}`);
+const port = process.env.port || 8080;
+
+app.listen(port, function () {
+  console.log(`starting app on: ${port}`);
 });
