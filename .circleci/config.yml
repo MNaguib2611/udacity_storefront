@@ -23,7 +23,9 @@ jobs:
       
       - eb/setup
       - run:
-          command:  eb deploy store-front-api-dev
+          command: |
+            eb use store-front-api-dev
+            eb deploy store-front-api-dev
 
 workflows:
   build-test-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
