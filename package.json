@@ -8,9 +8,10 @@
   },
   "scripts": {
     "start": "nodemon src/server.ts",
+    "compile": " npx tsc",
     "build": "rm -rf www && npx tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "jasmine": "jasmine",
-    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && yarn run build && ENV=test  yarn run jasmine",
+    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && yarn run compile && ENV=test  yarn run jasmine",
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
     "prettier": "prettier .",
     "format:verify": "yarn run prettier  --check .",
