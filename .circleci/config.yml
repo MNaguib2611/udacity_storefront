@@ -54,7 +54,11 @@ jobs:
 workflows:
   storefront:
     jobs:
-      - build
+      - build:
+             filters:
+            branches:
+              only:
+                - main
       - deploy:
           requires:
             - build
