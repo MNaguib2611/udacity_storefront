@@ -24,6 +24,7 @@ jobs:
       - eb/setup
       - run:
           command: |
+            eb init
             eb use store-front-api-dev
             eb deploy store-front-api-dev
 
