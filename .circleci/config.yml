@@ -41,6 +41,9 @@ workflows:
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
   elastic-beanstalk-workflow:
-    jobs:      
+    jobs: 
+      - node/test     
       - aws-cli-setup-job
-      - eb-deploy
+      - eb-deploy:
+         requires:
+            - node/test
