@@ -1,31 +1,39 @@
+# This config is equivalent to both the '.circleci/extended/orb-free.yml' and the base '.circleci/config.yml'
 version: 2.1
-orbs:
-  node: circleci/node@1.1
-jobs:
-  build-and-test:
-    executor:
-      name: node/default
-      version: '16.10'
 
+# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
+# See: https://circleci.com/docs/2.0/orb-intro/
+orbs:
+  node: circleci/node@4.7
+  aws-cli: circleci/aws-cli@2.0.3
+  eb: circleci/aws-elastic-beanstalk@1.0.0
+
+jobs:
+  aws-cli-setup-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
     steps:
-      - checkout
-      - node/with-cache:
-          steps:
-            - run: yarn
-            - run: yarn test
-            - run:
-                name: Installing deployment dependencies
-                command: |
-                  sudo apt-get -y -qq update
-                  sudo apt-get install python-pip python-dev build-essential
-                  sudo pip install --upgrade setuptools
-                  sudo pip install awsebcli --upgrade
-            - run:
-                name: Deploying
-                command: eb deploy store-front-api-dev
+      - aws-cli/install:
+          disable-aws-pager: true 
+  eb-deploy:
+    docker:
+      - image: 'cimg/base:stable'
+    steps:
+      
+      - eb/setup
+      - run:
+          command:  eb deploy store-front-api-dev
 
 workflows:
-  build-and-test:
+  build-test-workflow: # This is the name of the workflow, feel free to change it to better match your workflow.
+    # Inside the workflow, you define the jobs you want to run.
     jobs:
-      - build-and-test:
-          context: aws
+      - node/test:
+          version: '16.10'
+          pkg-manager: yarn
+      - aws-cli-setup-job
+      - eb-deploy:
+         requires:
+            - node/test  
+     
