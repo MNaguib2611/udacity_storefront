@@ -15,7 +15,7 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 app.get('/', function (req: Request, res: Response) {
-  res.send('Hello World!');
+  res.send('Hello CircleCi !!!');
 });
 
 app.use(userRoutes);
