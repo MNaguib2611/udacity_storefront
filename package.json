@@ -8,7 +8,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "rm -rf www && tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
+    "build": "rm -rf www && npx tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "jasmine": "jasmine",
     "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && tsc && ENV=test  yarn run jasmine",
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
@@ -16,7 +16,7 @@
     "format:verify": "yarn run prettier  --check .",
     "format": "yarn run prettier --write",
     "verify": "yarn run lint && yarn run format",
-    "deploy": "eb use store-front-api-dev && eb deploy"
+    "deploy": "yarn run build && eb use store-front-api-dev && eb deploy"
   },
   "keywords": [
     "starter-code-typescrript-express"
