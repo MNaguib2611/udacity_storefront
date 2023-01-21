@@ -2,11 +2,13 @@
 This project was used for storefron api application for udacity, now used as deployment project for udacity
 
 
-## Application Diagram
+## Infrastructure Diagram
 This is the architecture of the application
+<img src="./deployment-images/infrastructure-diagram.png" alt="url" style="height: 400px; width:100%;"/>
 
-<img src="./deployment-images/app-diagram.png" alt="url" style="height: 400px; width:100%;"/>
-
+## Pipeline Diagram
+This is the architecture of the application
+<img src="./deployment-images/pipeline-diagram.png" alt="url" style="height: 400px; width:100%;"/>
 
 ## Application url 
 This is url of backend app  **Elastic Beanstalk EC2**
@@ -36,9 +38,12 @@ The directory `deployment-images` contains screenshots of `aws resources` , `ela
 
 # Resubmition 1
 - [x] added filter to `config.yml` file that will trigger the build only when code pushed to main branch
-- [ ] used `eb setenv` command to set EBS env variables
-- [ ] documentation folder 
-- [x] application diagram is `./deployment-images/app-diagram.png` 
+- [x] used `eb setenv` command to set EBS env variables, screenshot `./deployment-images/circle-ci-eb-setenv.png`
+- [x] documentation folder 
+- [x] Infrastructure diagram is `./deployment-images/infrastructure-diagram.png` 
+- [x] Pipeline diagram is in`./deployment-images/pipeline-diagram.png` 
 - [x] A front end application is deployed using **S3 static website hosting**  on  [http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/](http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/)
+
+
 
 
