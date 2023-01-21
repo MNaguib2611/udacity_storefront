@@ -4,14 +4,13 @@
   "description": "",
   "main": "server.js",
   "engines": {
-    "node": "16.15.1"
+    "node": "16.15.0"
   },
   "scripts": {
     "start": "node server.js",
-    "compile": " npx tsc",
-    "build": "rm -rf www && npx tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
+    "build": "rm -rf www && tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "jasmine": "jasmine",
-    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && yarn run compile && ENV=test  yarn run jasmine",
+    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && tsc && ENV=test  yarn run jasmine",
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
     "prettier": "prettier .",
     "format:verify": "yarn run prettier  --check .",
