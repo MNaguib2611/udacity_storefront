@@ -25,6 +25,8 @@ jobs:
       - eb/setup
       - run:
           command: |
+           ls
+           ls -l
             eb deploy store-front-api-dev 
           name: You may now use the EB CLI within this job        
 # Invoke jobs via workflows
@@ -43,5 +45,5 @@ workflows:
       - aws-cli-setup-job
       - eb-deploy:
          requires:
-            - node/test   
+            - node/test  
      
