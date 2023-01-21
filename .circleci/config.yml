@@ -8,8 +8,24 @@ orbs:
   aws-cli: circleci/aws-cli@2.0.3
   eb: circleci/aws-elastic-beanstalk@1.0.0
   
+executors:
+  my-executor:
+    docker:
+      - image: buildpack-deps:jessie
+    working_directory: /tmp
 
 jobs:
+  flow:
+    executor: my-executor
+    steps:
+      # Persist the specified paths (workspace/echo-output) into the workspace for use in downstream job.
+      - persist_to_workspace:
+          # Must be an absolute path, or relative path from working_directory. This is a directory on the container which is
+          # taken to be the root directory of the workspace.
+          root: workspace
+          # Must be relative path from root
+          paths:
+            - Archive.zip
   aws-cli-setup-job:
     docker:
       # replace with your preferred image
@@ -21,10 +37,11 @@ jobs:
     docker:
       - image: 'cimg/base:stable'
     steps:
+      - attach_workspace:
+          at: /tmp/workspace
       - eb/setup
       - run:
           command: |
-            npm run build
             ls
             eb deploy store-front-api-dev 
           name: You may now use the EB CLI within this job        
@@ -41,6 +58,7 @@ workflows:
           version: '16.10'
           # If you are using yarn, change the line below from "npm" to "yarn"
           pkg-manager: npm
+
       - aws-cli-setup-job
       - eb-deploy:
          requires:
