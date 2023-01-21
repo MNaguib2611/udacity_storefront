@@ -48,7 +48,10 @@ jobs:
           command: |
             echo " Install, build, deploy in both apps"
             ls
+            npm install typescript
             npm run deploy
+            ls
+
             
 workflows:
   storefront:
