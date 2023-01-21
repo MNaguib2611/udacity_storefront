@@ -2,8 +2,31 @@
 This project was used for storefron api application for udacity, now used as deployment project for udacity
 
 
+## Application Diagram
+This is the architecture of the application
+
+<img src="./deployment-images/app-diagram.png" alt="url" style="height: 250px; width:100%;"/>
 
 
-## frontend url 
-[http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/](http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/)
-this is an example frontend app deployed on AWS S3 **Static website hosting**
+## Application url 
+This is url of backend app  **Elastic Beanstalk EC2**
+[http://store-front-api-dev.eba-ukf2wwwa.us-east-1.elasticbeanstalk.com//](http://store-front-api-dev.eba-ukf2wwwa.us-east-1.elasticbeanstalk.com/)
+
+<img src="./deployment-images/ebs/ebs-app-is-working.png" alt="url" style="height: 250px; width:100%;"/>
+
+
+## Deployment ScreenShots
+The directory `deployment-images` contains screenshots of `aws resources` , `elastic beanstock` & `circleCi deployments`
+
+
+## Scripts
+
+- `npm run start ` serve www/server.js on elastic beanst
+- `npm run build ` compile ts to js
+- `npm run deploy ` compile ts to js
+- `npm run jasmine ` run jasmine on dist folder
+- `npm run test ` run build & jasmine scripts
+- `npm run lint ` run linter
+- `npm run prettier ` check prettier
+- `npm run format:verify ` prettier verify format
+- `npm run format ` write prettier format

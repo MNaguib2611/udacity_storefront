@@ -19,7 +19,7 @@ A simple Express application for the APIs of creating a store front for udacity 
 - `yarn run lint ` run linter
 - `yarn run prettier ` check prettier
 - `yarn run format:verify ` prettier verify format
-- `yarn run format ` write prettier formate
+- `yarn run format ` write prettier format
 
 ## Endpints
 
