@@ -10,13 +10,13 @@
     "start": "node server.js",
     "build": "rm -rf www && npx tsc && cp -rf dist www && cp -R .elasticbeanstalk www/.elasticbeanstalk && cp database.json www/database.json&& cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
     "jasmine": "jasmine",
-    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && tsc && ENV=test  yarn run jasmine",
+    "test": "ENV=test db-migrate -m ./src/migrations down --env test -c 5 && ENV=test db-migrate -m ./src/migrations --env test up && tsc && ENV=test  npm run jasmine",
     "lint": "eslint --cache --ignore-path .gitignore --ext .js,.ts ./",
     "prettier": "prettier .",
-    "format:verify": "yarn run prettier  --check .",
-    "format": "yarn run prettier --write",
-    "verify": "yarn run lint && yarn run format",
-    "deploy": "yarn run build && eb use store-front-api-dev && eb deploy"
+    "format:verify": "npm run prettier  --check .",
+    "format": "npm run prettier --write",
+    "verify": "npm run lint && npm run format",
+    "deploy": "npm run build && eb use store-front-api-dev && eb deploy"
   },
   "keywords": [
     "starter-code-typescrript-express"
