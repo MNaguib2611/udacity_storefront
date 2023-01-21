@@ -16,7 +16,7 @@
     "format:verify": "yarn run prettier  --check .",
     "format": "yarn run prettier --write",
     "verify": "yarn run lint && yarn run format",
-    "deploy": "npm run build && eb use store-front-api-dev && eb deploy"
+    "deploy": "eb use store-front-api-dev && eb deploy"
   },
   "keywords": [
     "starter-code-typescrript-express"
