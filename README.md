@@ -30,3 +30,15 @@ The directory `deployment-images` contains screenshots of `aws resources` , `ela
 - `npm run prettier ` check prettier
 - `npm run format:verify ` prettier verify format
 - `npm run format ` write prettier format
+
+
+
+
+# Resubmition 1
+- [x] added filter to `config.yml` file that will trigger the build only when code pushed to main branch
+- [ ] used `eb setenv` command to set EBS env variables
+- [ ] documentation folder 
+- [x] application diagram is `./deployment-images/app-diagram.png` 
+- [x] A front end application is deployed using **S3 static website hosting**  on  [http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/](http://udacity-walkthrough8y77564.s3-website-us-east-1.amazonaws.com/)
+
+

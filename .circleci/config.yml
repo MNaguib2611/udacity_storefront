@@ -48,6 +48,17 @@ jobs:
           command: |
             echo " Install, build, deploy in both apps"
             npm install typescript
+            eb setenv POSTGRES_HOST=$POSTGRES_HOST
+            eb setenv POSTGRES_USER=$POSTGRES_USER
+            eb setenv POSTGRES_PASS=$POSTGRES_PASS
+            eb setenv POSTGRES_DB=$POSTGRES_DB
+            eb setenv POSTGRES_TEST_DB=$POSTGRES_TEST_DB
+            eb setenv AWS_REGION=$AWS_REGION
+            eb setenv AWS_PROFILE=$AWS_PROFILE
+            eb setenv BYCRYPT_PASSWORD=$BYCRYPT_PASSWORD
+            eb setenv SALT_ROUNDS=$SALT_ROUNDS
+            eb setenv JWT_SECRET=$JWT_SECRET
+            eb setenv TOKEN_SECRET=$TOKEN_SECRET
             npm run deploy
 
             
@@ -55,10 +66,10 @@ workflows:
   storefront:
     jobs:
       - build:
-             filters:
-            branches:
-              only:
-                - main
+        filters:
+          branches:
+            only:
+            - main
       - deploy:
           requires:
             - build
