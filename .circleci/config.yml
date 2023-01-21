@@ -20,13 +20,17 @@ jobs:
   eb-deploy:
     docker:
       - image: 'cimg/base:stable'
+    working_directory: /tmp
+    
     steps:
       - checkout
       - eb/setup
+      - store_artifacts:
+          path: /tmp/artifact
+          destination: www
       - run:
           command: |
            ls
-           ls -l
             eb deploy store-front-api-dev 
           name: You may now use the EB CLI within this job        
 # Invoke jobs via workflows
