@@ -5,12 +5,14 @@ jobs:
   build-and-test:
     executor:
       name: node/default
+      version: '16.10'
+
     steps:
       - checkout
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm test
+            - run: yarn
+            - run: yarn test
             - run:
                 name: Installing deployment dependencies
                 command: |
